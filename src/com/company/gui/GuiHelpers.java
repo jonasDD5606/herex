@@ -2,6 +2,7 @@ package com.company.gui;
 
 import com.company.*;
 import com.company.data.AdminDao;
+import com.company.data.CourseDao;
 import com.company.data.Dao;
 import com.company.data.StudentDao;
 
@@ -15,12 +16,7 @@ public class GuiHelpers extends MainFrame{
 
     public static void showCourses() throws SQLException {
         StudentDao dao = new StudentDao();
-        dao.getAllCourses();
-        for(int i = 0; i < Course.courses.size(); i++){
-            Course course = Course.courses.get(i);
-
-        }
-
+        CourseDao.getAllCourses();
     }
     static Course targetCourse;
     static Tutor targetTutor;

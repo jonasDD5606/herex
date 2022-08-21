@@ -11,27 +11,6 @@ public class StudentDao extends Dao {
 
     }
 
-    public void getAllCourses() throws SQLException {
-        String query = "select * from courses", cname = null;
-        int id = 0;
-        int year = 0;
-        int admin = 0;
-        try {
-            Statement stmt = getConn().createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()){
-                cname = rs.getString("name");
-                id = rs.getInt("id");
-                year = rs.getInt("year");
-                admin = rs.getInt("admin");
-                Course crs = new Course(id, cname, year, admin);
-            }
-            conn.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-    }
     public void getStudentData(int id){
         String query = "select firstname, lastname, email, confirmed, role from users where id = "+ id +";"
                 , fname = "", lname = "", email = "", role = "", conf = "";
@@ -54,17 +33,7 @@ public class StudentDao extends Dao {
         }
 
     }
-    public static void askHelp(int tutor, int student, int course) {
-        try {
-            Connection c = getConn();
-            PreparedStatement ps = c.prepareStatement("INSERT INTO `tutoring`VALUES ('" + tutor + "', '"+ student +"', '" + course + "', NULL, NULL, 'F' )");
-            ps.executeUpdate();
-            conn.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     public static void askQuestion(String question, int receiver) throws SQLException {
         Connection c = getConn();
         int qid = 0;
@@ -107,7 +76,6 @@ public class StudentDao extends Dao {
                 Course crs = new Course(cid);
                 tutor = new Tutor(tid);
                 tutor.setCourse(crs);
-                System.out.println(tutor.getId());
                 tutors.add(tutor);
             }
         }
@@ -116,7 +84,6 @@ public class StudentDao extends Dao {
     public static ArrayList<Tutor> addTutorNameToArray(ArrayList<Tutor> tutors ) throws SQLException {
         for (int i = 0; i < tutors.size(); i++){
             String sql = "SELECT * FROM users WHERE id=" + tutors.get(i).getId() + ";";
-            System.out.println(sql);
             Statement stmt = getConn().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
