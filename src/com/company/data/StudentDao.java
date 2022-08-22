@@ -115,6 +115,19 @@ public class StudentDao extends Dao {
 
         return tutors;
     }
+    public static boolean studentAlreadyInTutoring(int course, int student){
+        String query = "SELECT * FROM tutoring WHERE ( cid =" + course + " AND sid = " + student + ");";
+        try {
+            Statement statement = getConn().createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()){
+                return false;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return true;
+    }
 
 
 

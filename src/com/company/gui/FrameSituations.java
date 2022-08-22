@@ -2,13 +2,17 @@ package com.company.gui;
 
 import com.company.*;
 import com.company.data.CourseDao;
+import com.company.data.StudentDao;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
+import static javax.swing.JComponent.getDefaultLocale;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class FrameSituations extends JFrame {
@@ -36,9 +40,14 @@ public class FrameSituations extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    CourseDao.giveStudentPerCourse(course, student);
-                    showMessageDialog(null, "je aanvraag is verwerkt");
+                    if (StudentDao.studentAlreadyInTutoring(course, student)){
+                        showMessageDialog(null, "Je tutort al voor dit vak");
+                    }else{
+                        CourseDao.giveStudentPerCourse(course, student);
+                        showMessageDialog(null, "je aanvraag is verwerkt");
+                    }
                 } catch (SQLException throwables) {
+                    showMessageDialog(null, "Je aanvraag zit in de wachtlijst voor dit vak");
                     throwables.printStackTrace();
                 }
                 searchforstudent.setVisible(false);
@@ -58,9 +67,15 @@ public class FrameSituations extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    CourseDao.giveStudentPerCourse(course, student);
-                    showMessageDialog(null, "je aanvraag is verwerkt");
+                    if (StudentDao.studentAlreadyInTutoring(course, student)){
+                        showMessageDialog(null, "Je wordt al getutord voor dit vak");
+                    }else{
+                        CourseDao.giveStudentPerCourse(course, student);
+                        showMessageDialog(null, "je aanvraag is verwerkt");
+                    }
+
                 } catch (SQLException throwables) {
+                    showMessageDialog(null, "Je aanvraag zit in de wachtlijst voor dit vak");
                     throwables.printStackTrace();
                 }
                 searchtutor.setVisible(false);
@@ -171,6 +186,7 @@ public class FrameSituations extends JFrame {
         main.setPreferredSize(new Dimension(screenSize.width / 16, screenSize.height/22));
         main.setVisible(true);
         JButton btnmain = new JButton("Vakken");
+        main.setBackground(Color.black);
         main.add(btnmain);
         navpan.add(main);
 
@@ -189,6 +205,7 @@ public class FrameSituations extends JFrame {
             JPanel vaktoev = new JPanel();
             vaktoev.setPreferredSize(new Dimension(screenSize.width / 16, screenSize.height/22));
             vaktoev.setVisible(true);
+            vaktoev.setBackground(Color.black);
             JButton btnvaktoev = new JButton("Vak Toeveogen");
             btnvaktoev.addActionListener(new ActionListener() {
                 @Override
@@ -249,9 +266,13 @@ public class FrameSituations extends JFrame {
 
            vaktoev.add(btnvaktoev);
            navpan.add(vaktoev);
+        }else if(Session.current instanceof Tutor){
+            JPanel tutorpan = new JPanel();
+
         }
 
     }
+
 
 
 
