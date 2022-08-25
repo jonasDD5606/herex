@@ -204,7 +204,7 @@ public class MainFrame extends JFrame {
         jp3.setPreferredSize(dimJp);
         Color color = new Color(29,29,27);
         jp3.setBackground(color);
-        BufferedImage myPicture = ImageIO.read(new File("C:/Users/Jonas/IntelliJIDEAProjects/HerEx/src/com/company/gui/9962662704_fda962d06a_b (1).png"));
+        BufferedImage myPicture = ImageIO.read(new File("src/com/company/gui/9962662704_fda962d06a_b (1).png"));
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
         Dimension dimFoto = new Dimension(screenSize.width/18, screenSize.height/22);
         picLabel.setPreferredSize(dimFoto);

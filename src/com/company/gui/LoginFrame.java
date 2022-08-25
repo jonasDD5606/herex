@@ -110,7 +110,7 @@ public class  LoginFrame extends JFrame {
 
         Dimension dimmension = new Dimension(dim.width/6, dim.height);
         jPanel2.setPreferredSize(dimmension);
-        BufferedImage myPicture = ImageIO.read(new File("C:/Users/Jonas/IntelliJIDEAProjects/HerEx/src/com/company/gui/9962662704_fda962d06a_b (1).png"));
+        BufferedImage myPicture = ImageIO.read(new File("src/com/company/gui/9962662704_fda962d06a_b (1).png"));
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
         Dimension dimFoto = new Dimension(dim.width/18, dim.height/22);
         //picLabel.setPreferredSize(dimFoto);
