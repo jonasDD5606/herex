@@ -35,6 +35,8 @@ public class FrameSituations extends JFrame {
         setScreenSize(Toolkit.getDefaultToolkit().getScreenSize());
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(screenSize.width / 6, screenSize.height / 25));
+        CourseDao.getAllStudentPerCourse(GuiHelpers.targetCourse.getId());
+        JLabel numstud = new JLabel("Aantal student die tutoring zoeken: " + Session.studentPerCourse.size());
         JButton searchforstudent = new JButton("Stel je aan als tutor voor dit vak");
         searchforstudent.addActionListener(new ActionListener() {
             @Override
@@ -54,6 +56,9 @@ public class FrameSituations extends JFrame {
             }
         });
         panel.add(searchforstudent);
+        pnl.add(numstud);
+        numstud.setForeground(Color.white);
+        numstud.setVisible(true);
         pnl.add(panel);
     }
     public void setStudentCourseSituation(JPanel pnl, JPanel goback, int course, int student){
@@ -63,6 +68,8 @@ public class FrameSituations extends JFrame {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(screenSize.width / 6, screenSize.height / 25));
         JButton searchtutor = new JButton("Zoek een tutor voor dit vak");
+        CourseDao.getAllTutorsPerCourse(GuiHelpers.targetCourse.getId());
+        JLabel numtut = new JLabel("Aantal tutors die een student zoeken: " + Session.tutorPerCourse.size());
         searchtutor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,6 +89,8 @@ public class FrameSituations extends JFrame {
             }
         });
         panel.add(searchtutor);
+        pnl.add(numtut);
+        numtut.setForeground(Color.white);
         pnl.add(panel);
 
 
